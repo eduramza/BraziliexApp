@@ -9,6 +9,8 @@ class PublicRepositoryImpl(private val api: BraziliexApi,
                            private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ): PublicRepository {
 
-    override suspend fun getAllCoins() = withContext(ioDispatcher) { api.getAllCoins()}
+    override suspend fun getAllCoins() = withContext(ioDispatcher) { api.callCoins()}
+
+    override suspend fun getAllTickers() = withContext(ioDispatcher) { api.callTcikers() }
 
 }

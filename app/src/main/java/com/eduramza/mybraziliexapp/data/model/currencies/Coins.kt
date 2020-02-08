@@ -1,4 +1,4 @@
-package com.eduramza.mybraziliexapp.data.model
+package com.eduramza.mybraziliexapp.data.model.currencies
 
 
 import com.google.gson.annotations.SerializedName

@@ -1,6 +1,7 @@
-package com.eduramza.mybraziliexapp.data.model
+package com.eduramza.mybraziliexapp.data.model.currencies
 
 
+import com.eduramza.mybraziliexapp.data.model.currencies.Coins
 import com.google.gson.annotations.SerializedName
 
 data class Currencies(
