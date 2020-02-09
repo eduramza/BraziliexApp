@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/pad_content_list_ticker"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
@@ -11,6 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_primary_list_ticker_size"
+        android:layout_marginTop="@dimen/pad_content_list_ticker"
+        android:layout_marginStart="@dimen/pad_content_list_ticker"
         android:text="BRL"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,6 +21,7 @@
         android:id="@+id/tv_list_ticker_last_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pad_content_list_ticker"
         android:textSize="@dimen/text_primary_list_ticker_size"
         android:text="R$ 42200,33"
         android:textStyle="bold"
@@ -31,10 +33,20 @@
         android:id="@+id/tv_list_ticker_percent_change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/pad_content_list_ticker"
+        android:layout_marginEnd="@dimen/pad_content_list_ticker"
         android:textSize="@dimen/text_primary_list_ticker_size"
         android:textStyle="bold"
         android:textColor="@color/percent_positive"
         android:text="4,33%"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/separator"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_list_ticker_percent_change"
+        android:layout_marginTop="@dimen/pad_content_list_ticker"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,15 +1,21 @@
 package com.eduramza.mybraziliexapp.ui.adapter
 
+import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.eduramza.mybraziliexapp.R
 import com.eduramza.mybraziliexapp.data.model.tickers.Tickers
+import com.eduramza.mybraziliexapp.ui.convertFloatToPercent
 import com.eduramza.mybraziliexapp.ui.inflate
+import com.eduramza.mybraziliexapp.ui.marketForUppercase
+import com.eduramza.mybraziliexapp.ui.transformDoubleInBRL
 import kotlinx.android.synthetic.main.item_list_tickers.view.*
 
 class TickersAdapter (private val tickerList: MutableList<Tickers.TickerUnit>,
-                      private val listener: TickerListener
+                      private val listener: TickerListener,
+                      private val context: Context
 ): RecyclerView.Adapter<TickersAdapter.TickerViewHolder>(){
 
     override fun onCreateViewHolder(
@@ -37,9 +43,14 @@ class TickersAdapter (private val tickerList: MutableList<Tickers.TickerUnit>,
         fun bindViewHolder(item: Tickers.TickerUnit){
             this.item = item
 
-            itemView.tv_list_ticker_name.text = item.market
-            itemView.tv_list_ticker_last_price.text = item.last.toString()
-            itemView.tv_list_ticker_percent_change.text = item.percentChange.toString()
+            itemView.tv_list_ticker_name.text = item.market!!.marketForUppercase()
+            itemView.tv_list_ticker_last_price.text = item.last!!.transformDoubleInBRL()
+            itemView.tv_list_ticker_percent_change.text = item.percentChange!!.convertFloatToPercent()
+
+            if (item.percentChange < 0){
+                itemView.tv_list_ticker_percent_change.setTextColor(
+                    ContextCompat.getColor(context, R.color.percent_negative))
+            }
 
             itemView.content_item_ticker.setOnClickListener {
                 listener.onClickItem(item)
@@ -53,4 +64,4 @@ class TickersAdapter (private val tickerList: MutableList<Tickers.TickerUnit>,
     }
 }
 
-fun String.isBrlTicker() = this.substring(this.lastIndexOf("_") + 1) == "brl"
+
