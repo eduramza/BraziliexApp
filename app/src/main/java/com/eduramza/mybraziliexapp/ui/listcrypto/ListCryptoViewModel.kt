@@ -45,7 +45,6 @@ class ListCryptoViewModel(private val publicRepository: PublicRepository) : View
             _isLoading.postValue(false)
             _tickerResponse.postValue(listOfTickers)
         }
-
     }
 
 }
