@@ -23,4 +23,12 @@ class RemoteService{
         return retrofit.create(BraziliexApi::class.java)
     }
 
+    fun fakeRemote(): BraziliexApi {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_PUBLIC_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        return retrofit.create(BraziliexApi::class.java)
+    }
+
 }
