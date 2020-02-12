@@ -46,6 +46,7 @@ class TickersAdapter (private val tickerList: MutableList<Tickers.TickerUnit>,
             itemView.tv_list_ticker_name.text = item.market!!.marketForUppercase()
             itemView.tv_list_ticker_last_price.text = item.last!!.transformDoubleInBRL()
             itemView.tv_list_ticker_percent_change.text = item.percentChange!!.convertFloatToPercent()
+            itemView.tv_list_value_vol24h.text = item.quoteVolume24!!.transformDoubleInBRL()
 
             if (item.percentChange < 0){
                 itemView.tv_list_ticker_percent_change.setTextColor(

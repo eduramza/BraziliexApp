@@ -8,10 +8,6 @@ import com.eduramza.mybraziliexapp.data.repository.PublicRepositoryImpl
 import com.eduramza.mybraziliexapp.data.source.RemoteService
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.spyk
-import io.mockk.verify
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
@@ -21,12 +17,12 @@ import org.junit.*
 import java.io.File
 
 /**
- * Unit test for the implementation of [ListCryptoViewModel]
+ * Unit test for the implementation of [CurrenciesViewModel]
  */
 @ExperimentalCoroutinesApi
 class ListCryptoViewModelTest{
     //Subject under the test
-    private lateinit var listCryptoViewModel: ListCryptoViewModel
+    private lateinit var listCryptoViewModel: CurrenciesViewModel
 
     //Fake Repository
     private lateinit var repositoryImpl : PublicRepositoryImpl
@@ -48,7 +44,7 @@ class ListCryptoViewModelTest{
     fun setupViewModel(){
         Dispatchers.setMain(testDispatcher)
         repositoryImpl = PublicRepositoryImpl(RemoteService().fakeRemote())
-        listCryptoViewModel = ListCryptoViewModel(repositoryImpl)
+        listCryptoViewModel = CurrenciesViewModel(repositoryImpl)
     }
 
     @After

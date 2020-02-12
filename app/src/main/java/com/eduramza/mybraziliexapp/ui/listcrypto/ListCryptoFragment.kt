@@ -6,7 +6,6 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -14,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.eduramza.mybraziliexapp.R
 import com.eduramza.mybraziliexapp.data.model.tickers.Tickers
 import com.eduramza.mybraziliexapp.ui.adapter.TickersAdapter
+import com.eduramza.mybraziliexapp.ui.detail.DetailFragment
 import kotlinx.android.synthetic.main.list_crypto_fragment.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -23,7 +23,7 @@ class ListCryptoFragment : Fragment(), TickersAdapter.TickerListener {
         fun newInstance() = ListCryptoFragment()
     }
 
-    private val viewModel: ListCryptoViewModel by viewModel()
+    private val viewModel: CurrenciesViewModel by viewModel()
     private lateinit var adapter: TickersAdapter
 
     override fun onCreateView(
@@ -48,6 +48,7 @@ class ListCryptoFragment : Fragment(), TickersAdapter.TickerListener {
     }
 
     private fun observerViewModel(){
+        viewModel.getAllTickers()
         viewModel.getTickerResponse().observe(viewLifecycleOwner, Observer {
             adapter.updateList(it as MutableList<Tickers.TickerUnit>)
         })
@@ -69,6 +70,13 @@ class ListCryptoFragment : Fragment(), TickersAdapter.TickerListener {
     }
 
     override fun onClickItem(item: Tickers.TickerUnit) {
-        Toast.makeText(context, "Clicked in ${item.market}", Toast.LENGTH_SHORT).show()
+        openDetails(item)
+    }
+
+    private fun openDetails(item: Tickers.TickerUnit) {
+        activity?.supportFragmentManager
+            ?.beginTransaction()
+            ?.replace(R.id.container, DetailFragment.newInstance(item), "detail")
+            ?.commit()
     }
 }

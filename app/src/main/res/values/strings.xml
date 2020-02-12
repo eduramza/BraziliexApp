@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">My Braziliex App</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="last_price_info">Last Price:</string>
+    <string name="volume_24h">Volume (24h):</string>
+    <string name="price_24h">Price (24h):</string>
+    <string name="trade_history_header_price">Price (R$)</string>
+    <string name="trade_history_header_qtde">Amount</string>
+    <string name="trade_history_header_total">Total (R$)</string>
 </resources>

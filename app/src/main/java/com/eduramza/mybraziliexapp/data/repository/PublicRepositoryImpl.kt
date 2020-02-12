@@ -13,4 +13,10 @@ class PublicRepositoryImpl(private val api: BraziliexApi,
 
     override suspend fun getAllTickers() = withContext(ioDispatcher) { api.callTcikers() }
 
+    override suspend fun getOrdersbook(market: String)
+            = withContext(ioDispatcher) {api.callOrderbook(market)}
+
+    override suspend fun getTradeHistory(market: String)
+            = withContext(ioDispatcher) {api.callTradeHistory(market)}
+
 }
