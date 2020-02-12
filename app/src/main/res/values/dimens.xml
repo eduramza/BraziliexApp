@@ -4,7 +4,7 @@
     <dimen name="pad_content_list_ticker">15dp</dimen>
     <dimen name="mrg_top_card_info_detail">10dp</dimen>
     <dimen name="pad_minimun">5dp</dimen>
-    <dimen name="height_recycler_order_history">280dp</dimen>
+    <dimen name="height_recycler_order_history">180dp</dimen>
     <dimen name="mrg_top_order_history">40dp</dimen>
-    <dimen name="text_size_trd_hist_list">14sp</dimen>
+    <dimen name="text_size_trd_hist_list">15sp</dimen>
 </resources>
