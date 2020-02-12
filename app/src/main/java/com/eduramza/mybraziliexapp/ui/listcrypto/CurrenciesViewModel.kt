@@ -32,6 +32,7 @@ class CurrenciesViewModel(private val publicRepository: PublicRepository) : View
         viewModelScope.launch {
             try {
                 val result = publicRepository.getAllTickers()
+                listOfTickers.clear()
                 val properties = result::class.memberProperties
 
                 for (prop in properties){
