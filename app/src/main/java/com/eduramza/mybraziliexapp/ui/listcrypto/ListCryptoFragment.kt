@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eduramza.mybraziliexapp.R
 import com.eduramza.mybraziliexapp.data.model.tickers.Tickers
+import com.eduramza.mybraziliexapp.ui.CurrenciesViewModel
 import com.eduramza.mybraziliexapp.ui.adapter.TickersAdapter
 import com.eduramza.mybraziliexapp.ui.detail.DetailFragment
 import kotlinx.android.synthetic.main.list_crypto_fragment.*

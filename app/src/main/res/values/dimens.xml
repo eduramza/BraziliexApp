@@ -7,4 +7,5 @@
     <dimen name="height_recycler_order_history">180dp</dimen>
     <dimen name="mrg_top_order_history">40dp</dimen>
     <dimen name="text_size_trd_hist_list">15sp</dimen>
+    <dimen name="size_title_orders">23sp</dimen>
 </resources>

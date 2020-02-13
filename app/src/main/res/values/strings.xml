@@ -9,4 +9,6 @@
     <string name="trade_history_header_price">Price (R$)</string>
     <string name="trade_history_header_qtde">Amount</string>
     <string name="trade_history_header_total">Total (R$)</string>
+    <string name="title_sell_orders">Sell Orders</string>
+    <string name="title_buy_orders">Buy Orders</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.eduramza.mybraziliexapp.ui.listcrypto
+package com.eduramza.mybraziliexapp.ui
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -8,7 +8,6 @@ import com.eduramza.mybraziliexapp.data.model.orderbook.Orderbook
 import com.eduramza.mybraziliexapp.data.model.tickers.Tickers
 import com.eduramza.mybraziliexapp.data.model.tradehistory.TradeHistory
 import com.eduramza.mybraziliexapp.data.repository.PublicRepository
-import com.eduramza.mybraziliexapp.ui.isBrlTicker
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import kotlin.reflect.full.memberProperties
@@ -22,8 +21,12 @@ class CurrenciesViewModel(private val publicRepository: PublicRepository) : View
     private val _isLoading : MutableLiveData<Boolean> = MutableLiveData(true)
     fun getLoading() = _isLoading
 
-    private val _orderbook = MutableLiveData<Orderbook>()
-    fun getOrderbook() = _orderbook
+    private val _bids = MutableLiveData<List<Orderbook.Bid>>()
+    private val listOfBids : MutableList<Orderbook.Bid> = mutableListOf()
+    private val listOfAsks : MutableList<Orderbook.Ask> = mutableListOf()
+    private val _asks = MutableLiveData<List<Orderbook.Ask>>()
+    fun getBidsData() = _bids
+    fun getAsksData() = _asks
 
     private val _tradeHistory = MutableLiveData<List<TradeHistory>>()
     fun getTradeHistoryLiveData() = _tradeHistory
@@ -56,13 +59,33 @@ class CurrenciesViewModel(private val publicRepository: PublicRepository) : View
         _isLoading.postValue(true)
         viewModelScope.launch {
             try {
-                _orderbook.postValue(publicRepository.getOrdersbook(market))
+                val ordersbook = publicRepository.getOrdersbook(market)
+                setBids(ordersbook.bids)
+                setAsk(ordersbook.asks)
             } catch (e: Exception){
                 e.printStackTrace()
                 _isLoading.postValue(false)
             }
             _isLoading.postValue(false)
         }
+    }
+
+    private fun setBids(bids: List<Orderbook.Bid>) {
+        listOfBids.clear()
+        for (i in bids){
+            val total = i.price * i.amount
+            listOfBids.add(Orderbook.Bid(i.amount, i.price, total))
+        }
+        _bids.postValue(listOfBids)
+    }
+
+    private fun setAsk(asks: List<Orderbook.Ask>) {
+        listOfAsks.clear()
+        for (i in asks){
+            val total = i.price * i.amount
+            listOfAsks.add(Orderbook.Ask(i.amount, i.price, total))
+        }
+        _asks.postValue(listOfAsks)
     }
 
     fun getMarketTradeHistory(market: String){

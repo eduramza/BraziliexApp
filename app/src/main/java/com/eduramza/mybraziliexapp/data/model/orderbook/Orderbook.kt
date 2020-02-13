@@ -13,13 +13,15 @@ data class Orderbook(
         @SerializedName("amount")
         val amount: Float,
         @SerializedName("price")
-        val price: Double
+        val price: Double,
+        val total: Double?
     )
 
     data class Bid(
         @SerializedName("amount")
         val amount: Float,
         @SerializedName("price")
-        val price: Double
+        val price: Double,
+        val total: Double?
     )
 }

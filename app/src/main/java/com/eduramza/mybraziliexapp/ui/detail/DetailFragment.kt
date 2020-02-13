@@ -12,13 +12,16 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eduramza.mybraziliexapp.R
+import com.eduramza.mybraziliexapp.data.model.orderbook.Orderbook
 import com.eduramza.mybraziliexapp.data.model.tickers.Tickers
 import com.eduramza.mybraziliexapp.data.model.tradehistory.TradeHistory
+import com.eduramza.mybraziliexapp.ui.adapter.AskAdapter
+import com.eduramza.mybraziliexapp.ui.adapter.BidAdapter
 import com.eduramza.mybraziliexapp.ui.adapter.TradeHistoryAdapter
-import com.eduramza.mybraziliexapp.ui.listcrypto.CurrenciesViewModel
+import com.eduramza.mybraziliexapp.ui.CurrenciesViewModel
 import com.eduramza.mybraziliexapp.ui.marketForUppercase
 import com.eduramza.mybraziliexapp.ui.transformDoubleInBRL
-import kotlinx.android.synthetic.main.drawer_view_header.*
+import kotlinx.android.synthetic.main.drawer_view_header_list.*
 import kotlinx.android.synthetic.main.fragment_detail.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -37,7 +40,9 @@ class DetailFragment : Fragment() {
     }
 
     private val viewModel: CurrenciesViewModel by viewModel()
-    private lateinit var adapter: TradeHistoryAdapter
+    private lateinit var tradeHistoryAdapter: TradeHistoryAdapter
+    private lateinit var askAdapter: AskAdapter
+    private lateinit var bidAdapter: BidAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,9 +60,17 @@ class DetailFragment : Fragment() {
     }
 
     private fun configList(){
-        adapter = TradeHistoryAdapter(mutableListOf(), context!!)
+        tradeHistoryAdapter = TradeHistoryAdapter(mutableListOf(), context!!)
         rv_list_orderhistory.layoutManager = LinearLayoutManager(context)
-        rv_list_orderhistory.adapter = adapter
+        rv_list_orderhistory.adapter = tradeHistoryAdapter
+
+        askAdapter = AskAdapter(mutableListOf())
+        rv_list_sell_orders.layoutManager = LinearLayoutManager(context)
+        rv_list_sell_orders.adapter = askAdapter
+
+        bidAdapter = BidAdapter(mutableListOf())
+        rv_list_buy_orders.layoutManager = LinearLayoutManager(context)
+        rv_list_buy_orders.adapter = bidAdapter
     }
 
     @SuppressLint("SetTextI18n")
@@ -77,10 +90,21 @@ class DetailFragment : Fragment() {
 
         trd_hist_header_amount.text = context!!.getString(R.string.trade_history_header_qtde) +
                 " (${ticker.market!!.marketForUppercase()})"
+
+        setupOrdersBookHeaaders()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setupOrdersBookHeaaders(){
+        tv_header_sell_orders.text = context!!.getString(R.string.title_sell_orders).toUpperCase() +
+                " (${ticker.market!!.marketForUppercase()})"
+        tv_header_buy_orders.text = context!!.getString(R.string.title_buy_orders).toUpperCase() +
+                " (${ticker.market!!.marketForUppercase()})"
     }
 
     private fun setupViewModel(){
         viewModel.getMarketTradeHistory(ticker.market!!)
+        viewModel.getAllOrderbook(ticker.market!!)
 
         viewModel.getLoading().observe(viewLifecycleOwner, Observer {
             if (it){
@@ -91,7 +115,15 @@ class DetailFragment : Fragment() {
         })
 
         viewModel.getTradeHistoryLiveData().observe(viewLifecycleOwner, Observer {
-            adapter.updateList(it as MutableList<TradeHistory>)
+            tradeHistoryAdapter.updateList(it as MutableList<TradeHistory>)
+        })
+
+        viewModel.getAsksData().observe(viewLifecycleOwner, Observer {
+            askAdapter.updateList(it as MutableList<Orderbook.Ask>)
+        })
+
+        viewModel.getBidsData().observe(viewLifecycleOwner, Observer {
+            bidAdapter.updateList(it as MutableList<Orderbook.Bid>)
         })
     }
 

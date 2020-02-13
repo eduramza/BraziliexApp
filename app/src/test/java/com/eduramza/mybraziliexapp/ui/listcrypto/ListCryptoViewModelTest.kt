@@ -6,6 +6,7 @@ import com.eduramza.mybraziliexapp.TestScope
 import com.eduramza.mybraziliexapp.data.model.tickers.Tickers
 import com.eduramza.mybraziliexapp.data.repository.PublicRepositoryImpl
 import com.eduramza.mybraziliexapp.data.source.RemoteService
+import com.eduramza.mybraziliexapp.ui.CurrenciesViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.*
@@ -44,7 +45,8 @@ class ListCryptoViewModelTest{
     fun setupViewModel(){
         Dispatchers.setMain(testDispatcher)
         repositoryImpl = PublicRepositoryImpl(RemoteService().fakeRemote())
-        listCryptoViewModel = CurrenciesViewModel(repositoryImpl)
+        listCryptoViewModel =
+            CurrenciesViewModel(repositoryImpl)
     }
 
     @After
