@@ -5,7 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-const val BASE_PUBLIC_URL = "https://braziliex.com/api/v1/public/"
+const val BASE_PUBLIC_URL = "https://braziliex.com/api/v1/"
 const val TICKER_PUBLIC_URL = "ticker"
 const val CURRENCIES_PUBLIC_URL = "currencies"
 const val ORDERBOOK_PUBLIC_URL = "orderbook"

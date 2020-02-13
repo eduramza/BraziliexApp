@@ -15,6 +15,7 @@ import com.eduramza.mybraziliexapp.data.model.tickers.Tickers
 import com.eduramza.mybraziliexapp.ui.CurrenciesViewModel
 import com.eduramza.mybraziliexapp.ui.adapter.TickersAdapter
 import com.eduramza.mybraziliexapp.ui.detail.DetailFragment
+import com.eduramza.mybraziliexapp.ui.privater.PrivateFragment
 import kotlinx.android.synthetic.main.list_crypto_fragment.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -79,5 +80,9 @@ class ListCryptoFragment : Fragment(), TickersAdapter.TickerListener {
             ?.beginTransaction()
             ?.replace(R.id.container, DetailFragment.newInstance(item), "detail")
             ?.commit()
+//        activity?.supportFragmentManager
+//            ?.beginTransaction()
+//            ?.replace(R.id.container, PrivateFragment.newInstance(), "private")
+//            ?.commit()
     }
 }
