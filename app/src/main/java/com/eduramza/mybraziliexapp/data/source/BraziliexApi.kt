@@ -26,9 +26,11 @@ interface BraziliexApi {
     ): List<TradeHistory>
 
     /************** PRIVATE *****************/
-    @POST("private/")
+    @POST("private")
     suspend fun callBalance(@Header("Key") key: String,
                             @Header("Sign") sign: String,
-                            @Query("command") command: String = "balance"): Balance
+                            @Query("command") command: String = "balance",
+                            @Query("nonce") nonce: String
+                            ): Balance
 
 }

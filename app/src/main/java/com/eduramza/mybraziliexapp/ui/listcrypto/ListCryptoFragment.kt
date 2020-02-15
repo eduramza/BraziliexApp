@@ -76,13 +76,13 @@ class ListCryptoFragment : Fragment(), TickersAdapter.TickerListener {
     }
 
     private fun openDetails(item: Tickers.TickerUnit) {
-        activity?.supportFragmentManager
-            ?.beginTransaction()
-            ?.replace(R.id.container, DetailFragment.newInstance(item), "detail")
-            ?.commit()
 //        activity?.supportFragmentManager
 //            ?.beginTransaction()
-//            ?.replace(R.id.container, PrivateFragment.newInstance(), "private")
+//            ?.replace(R.id.container, DetailFragment.newInstance(item), "detail")
 //            ?.commit()
+        activity?.supportFragmentManager
+            ?.beginTransaction()
+            ?.replace(R.id.container, PrivateFragment.newInstance(), "private")
+            ?.commit()
     }
 }

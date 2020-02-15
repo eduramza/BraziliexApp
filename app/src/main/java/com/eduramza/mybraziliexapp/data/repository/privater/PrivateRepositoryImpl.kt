@@ -1,8 +1,6 @@
 package com.eduramza.mybraziliexapp.data.repository.privater
 
-import com.eduramza.mybraziliexapp.data.repository.privater.PrivateRepository
 import com.eduramza.mybraziliexapp.data.source.BraziliexApi
-import com.eduramza.mybraziliexapp.ui.ALGORITM
 import com.eduramza.mybraziliexapp.ui.API_KEY
 import com.eduramza.mybraziliexapp.ui.API_SECRET
 import com.eduramza.mybraziliexapp.ui.AuthPrivate
@@ -15,9 +13,13 @@ class PrivateRepositoryImpl(private val api: BraziliexApi,
     PrivateRepository {
 
     override suspend fun callBalance() = withContext(ioDispatcher) {
-        AuthPrivate.buildHmacSignature(ALGORITM, API_SECRET)?.let {
-            api.callBalance(API_KEY,
-                it
+        val nonce = System.currentTimeMillis().toString()
+        AuthPrivate.buildHmacSignature("balance",
+            API_SECRET,
+            nonce)?.let {
+            api.callBalance(key = API_KEY,
+                sign = it,
+                nonce = nonce
             )
         }
     }
