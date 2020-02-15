@@ -44,7 +44,7 @@ class ListCryptoViewModelTest{
     @Before
     fun setupViewModel(){
         Dispatchers.setMain(testDispatcher)
-        repositoryImpl = PublicRepositoryImpl(RemoteService().fakeRemote())
+//        repositoryImpl = PublicRepositoryImpl(RemoteService().fakeRemote())
         listCryptoViewModel =
             CurrenciesViewModel(repositoryImpl)
     }

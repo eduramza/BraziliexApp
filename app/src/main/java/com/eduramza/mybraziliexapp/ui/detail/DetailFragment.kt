@@ -15,9 +15,6 @@ import com.eduramza.mybraziliexapp.R
 import com.eduramza.mybraziliexapp.data.model.orderbook.Orderbook
 import com.eduramza.mybraziliexapp.data.model.tickers.Tickers
 import com.eduramza.mybraziliexapp.data.model.tradehistory.TradeHistory
-import com.eduramza.mybraziliexapp.ui.adapter.AskAdapter
-import com.eduramza.mybraziliexapp.ui.adapter.BidAdapter
-import com.eduramza.mybraziliexapp.ui.adapter.TradeHistoryAdapter
 import com.eduramza.mybraziliexapp.ui.CurrenciesViewModel
 import com.eduramza.mybraziliexapp.ui.marketForUppercase
 import com.eduramza.mybraziliexapp.ui.transformDoubleInBRL
@@ -60,15 +57,21 @@ class DetailFragment : Fragment() {
     }
 
     private fun configList(){
-        tradeHistoryAdapter = TradeHistoryAdapter(mutableListOf(), context!!)
+        tradeHistoryAdapter =
+            TradeHistoryAdapter(
+                mutableListOf(),
+                context!!
+            )
         rv_list_orderhistory.layoutManager = LinearLayoutManager(context)
         rv_list_orderhistory.adapter = tradeHistoryAdapter
 
-        askAdapter = AskAdapter(mutableListOf())
+        askAdapter =
+            AskAdapter(mutableListOf())
         rv_list_sell_orders.layoutManager = LinearLayoutManager(context)
         rv_list_sell_orders.adapter = askAdapter
 
-        bidAdapter = BidAdapter(mutableListOf())
+        bidAdapter =
+            BidAdapter(mutableListOf())
         rv_list_buy_orders.layoutManager = LinearLayoutManager(context)
         rv_list_buy_orders.adapter = bidAdapter
     }
@@ -106,13 +109,7 @@ class DetailFragment : Fragment() {
         viewModel.getMarketTradeHistory(ticker.market!!)
         viewModel.getAllOrderbook(ticker.market!!)
 
-        viewModel.getLoading().observe(viewLifecycleOwner, Observer {
-            if (it){
-                showLoading()
-            } else {
-                hideLoading()
-            }
-        })
+        observeLoadings()
 
         viewModel.getTradeHistoryLiveData().observe(viewLifecycleOwner, Observer {
             tradeHistoryAdapter.updateList(it as MutableList<TradeHistory>)
@@ -127,7 +124,27 @@ class DetailFragment : Fragment() {
         })
     }
 
+    private fun observeLoadings(){
+        viewModel.getLoadingOrderbook().observe(viewLifecycleOwner, Observer {
+            if (it){
+                showLoading()
+            } else {
+                hideLoading()
+            }
+        })
+        viewModel.getLoadingAsk().observe(viewLifecycleOwner, Observer {
+            if (it) showAskLoading()  else hideAskLoading()
+        })
+        viewModel.getLoadingBids().observe(viewLifecycleOwner, Observer {
+            if (it) showBidsLoading()  else hideBidsLoading()
+        })
+    }
+
     private fun showLoading() { pb_order_history.visibility = VISIBLE }
     private fun hideLoading() {pb_order_history.visibility = GONE}
+    private fun showAskLoading() { pb_sell_orders.visibility = VISIBLE }
+    private fun hideAskLoading() {pb_sell_orders.visibility = GONE}
+    private fun showBidsLoading() { pb_buy_orders.visibility = VISIBLE }
+    private fun hideBidsLoading() {pb_buy_orders.visibility = GONE}
 
 }

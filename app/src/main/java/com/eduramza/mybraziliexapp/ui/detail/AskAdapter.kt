@@ -1,4 +1,4 @@
-package com.eduramza.mybraziliexapp.ui.adapter
+package com.eduramza.mybraziliexapp.ui.detail
 
 import android.view.View
 import android.view.ViewGroup

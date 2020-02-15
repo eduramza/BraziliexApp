@@ -18,8 +18,13 @@ class CurrenciesViewModel(private val publicRepository: PublicRepository) : View
     private val listOfTickers: MutableList<Tickers.TickerUnit> = mutableListOf()
     fun getTickerResponse() = _tickerResponse
 
-    private val _isLoading : MutableLiveData<Boolean> = MutableLiveData(true)
-    fun getLoading() = _isLoading
+    private val _isLoadingOrderBook : MutableLiveData<Boolean> = MutableLiveData(true)
+    fun getLoadingOrderbook() = _isLoadingOrderBook
+
+    private val _isLoadingAsk : MutableLiveData<Boolean> = MutableLiveData(true)
+    fun getLoadingAsk() = _isLoadingAsk
+    private val _isLoadingBids : MutableLiveData<Boolean> = MutableLiveData(true)
+    fun getLoadingBids() = _isLoadingBids
 
     private val _bids = MutableLiveData<List<Orderbook.Bid>>()
     private val listOfBids : MutableList<Orderbook.Bid> = mutableListOf()
@@ -47,16 +52,19 @@ class CurrenciesViewModel(private val publicRepository: PublicRepository) : View
                     }
                 }
             }catch (e: Exception){
-                _isLoading.postValue(false)
+                _isLoadingOrderBook.postValue(false)
                 e.printStackTrace()
             }
-            _isLoading.postValue(false)
+            _isLoadingOrderBook.postValue(false)
             _tickerResponse.postValue(listOfTickers)
         }
     }
 
     fun getAllOrderbook(market: String){
-        _isLoading.postValue(true)
+        _isLoadingOrderBook.postValue(true)
+        _isLoadingBids.postValue(true)
+        _isLoadingAsk.postValue(true)
+
         viewModelScope.launch {
             try {
                 val ordersbook = publicRepository.getOrdersbook(market)
@@ -64,9 +72,11 @@ class CurrenciesViewModel(private val publicRepository: PublicRepository) : View
                 setAsk(ordersbook.asks)
             } catch (e: Exception){
                 e.printStackTrace()
-                _isLoading.postValue(false)
+                _isLoadingOrderBook.postValue(false)
+                _isLoadingBids.postValue(false)
+                _isLoadingAsk.postValue(false)
             }
-            _isLoading.postValue(false)
+            _isLoadingOrderBook.postValue(false)
         }
     }
 
@@ -77,6 +87,7 @@ class CurrenciesViewModel(private val publicRepository: PublicRepository) : View
             listOfBids.add(Orderbook.Bid(i.amount, i.price, total))
         }
         _bids.postValue(listOfBids)
+        _isLoadingBids.postValue(false)
     }
 
     private fun setAsk(asks: List<Orderbook.Ask>) {
@@ -86,18 +97,19 @@ class CurrenciesViewModel(private val publicRepository: PublicRepository) : View
             listOfAsks.add(Orderbook.Ask(i.amount, i.price, total))
         }
         _asks.postValue(listOfAsks)
+        _isLoadingAsk.postValue(false)
     }
 
     fun getMarketTradeHistory(market: String){
-        _isLoading.postValue(true)
+        _isLoadingOrderBook.postValue(true)
         viewModelScope.launch {
             try {
                 _tradeHistory.postValue(publicRepository.getTradeHistory(market))
             } catch (e: Exception){
                 e.printStackTrace()
-                _isLoading.postValue(false)
+                _isLoadingOrderBook.postValue(false)
             }
-            _isLoading.postValue(false)
+            _isLoadingOrderBook.postValue(false)
         }
     }
 

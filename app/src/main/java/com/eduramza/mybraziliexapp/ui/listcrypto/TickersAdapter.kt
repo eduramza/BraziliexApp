@@ -1,4 +1,4 @@
-package com.eduramza.mybraziliexapp.ui.adapter
+package com.eduramza.mybraziliexapp.ui.listcrypto
 
 import android.content.Context
 import android.view.View

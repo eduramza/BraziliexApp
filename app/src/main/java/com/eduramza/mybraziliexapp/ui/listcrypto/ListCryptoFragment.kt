@@ -11,9 +11,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eduramza.mybraziliexapp.R
+import com.eduramza.mybraziliexapp.app.constants.FragmentTags.Companion.DETAIL
 import com.eduramza.mybraziliexapp.data.model.tickers.Tickers
 import com.eduramza.mybraziliexapp.ui.CurrenciesViewModel
-import com.eduramza.mybraziliexapp.ui.adapter.TickersAdapter
 import com.eduramza.mybraziliexapp.ui.detail.DetailFragment
 import kotlinx.android.synthetic.main.list_crypto_fragment.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -42,7 +42,11 @@ class ListCryptoFragment : Fragment(), TickersAdapter.TickerListener {
     }
 
     private fun configList(){
-        adapter = TickersAdapter(mutableListOf(), this, context!!)
+        adapter = TickersAdapter(
+            mutableListOf(),
+            this,
+            context!!
+        )
         rv_list_crypto.layoutManager = LinearLayoutManager(context)
         rv_list_crypto.itemAnimator = DefaultItemAnimator()
         rv_list_crypto.adapter = adapter
@@ -53,7 +57,7 @@ class ListCryptoFragment : Fragment(), TickersAdapter.TickerListener {
         viewModel.getTickerResponse().observe(viewLifecycleOwner, Observer {
             adapter.updateList(it as MutableList<Tickers.TickerUnit>)
         })
-        viewModel.getLoading().observe(viewLifecycleOwner, Observer {
+        viewModel.getLoadingOrderbook().observe(viewLifecycleOwner, Observer {
             if (it){
                 showLoading()
             } else {
@@ -77,7 +81,7 @@ class ListCryptoFragment : Fragment(), TickersAdapter.TickerListener {
     private fun openDetails(item: Tickers.TickerUnit) {
         activity?.supportFragmentManager
             ?.beginTransaction()
-            ?.replace(R.id.container, DetailFragment.newInstance(item), "detail")
+            ?.replace(R.id.container, DetailFragment.newInstance(item), DETAIL)
             ?.commit()
     }
 }

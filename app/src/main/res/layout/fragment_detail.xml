@@ -93,7 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="R$ 13,12"
-                    app:layout_constraintStart_toStartOf="@id/tv_value_highest_bid"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_value_highest_bid" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -126,12 +126,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/title_sell_orders"
+            android:gravity="center"
             android:textSize="@dimen/size_title_orders"
             android:textStyle="bold|italic"
             android:layout_marginTop="@dimen/mrg_top_order_history"
             app:layout_constraintTop_toBottomOf="@id/layout_history"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
+
+        <ProgressBar
+            android:id="@+id/pb_order_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:layout_constraintStart_toStartOf="@id/layout_history"
+            app:layout_constraintEnd_toEndOf="@id/layout_history"
+            app:layout_constraintBottom_toBottomOf="@id/layout_history"
+            app:layout_constraintTop_toTopOf="@id/layout_history"/>
 
         <LinearLayout
             android:id="@+id/layout_sell_orders"
@@ -153,12 +164,23 @@
 
         </LinearLayout>
 
+        <ProgressBar
+            android:id="@+id/pb_sell_orders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:layout_constraintStart_toStartOf="@id/layout_sell_orders"
+            app:layout_constraintEnd_toEndOf="@id/layout_sell_orders"
+            app:layout_constraintBottom_toBottomOf="@id/layout_sell_orders"
+            app:layout_constraintTop_toTopOf="@id/layout_sell_orders"/>
+
         <TextView
             android:id="@+id/tv_header_buy_orders"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/title_buy_orders"
             android:textSize="@dimen/size_title_orders"
+            android:gravity="center"
             android:textStyle="bold|italic"
             android:layout_marginTop="@dimen/mrg_top_order_history"
             app:layout_constraintTop_toBottomOf="@id/layout_sell_orders"
@@ -186,14 +208,14 @@
         </LinearLayout>
 
         <ProgressBar
-            android:id="@+id/pb_order_history"
+            android:id="@+id/pb_buy_orders"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            app:layout_constraintStart_toStartOf="@id/layout_history"
-            app:layout_constraintEnd_toEndOf="@id/layout_history"
-            app:layout_constraintBottom_toBottomOf="@id/layout_history"
-            app:layout_constraintTop_toTopOf="@id/layout_history"/>
+            app:layout_constraintStart_toStartOf="@id/layout_buy_orders"
+            app:layout_constraintEnd_toEndOf="@id/layout_buy_orders"
+            app:layout_constraintBottom_toBottomOf="@id/layout_buy_orders"
+            app:layout_constraintTop_toTopOf="@id/layout_buy_orders"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
