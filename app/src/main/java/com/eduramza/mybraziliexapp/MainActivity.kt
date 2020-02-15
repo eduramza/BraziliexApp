@@ -3,6 +3,7 @@ package com.eduramza.mybraziliexapp
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.eduramza.mybraziliexapp.app.constants.FragmentTags.Companion.DETAIL
 import com.eduramza.mybraziliexapp.app.constants.FragmentTags.Companion.LIST
 import com.eduramza.mybraziliexapp.ui.listcrypto.ListCryptoFragment
 import kotlinx.android.synthetic.main.custom_toolbar.*
@@ -21,12 +22,19 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, ListCryptoFragment.newInstance(), LIST)
                 .commitNow()
         }
+
+        ic_back.setOnClickListener { backTo() }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
+    private fun backTo(){
+        supportFragmentManager.findFragmentByTag(DETAIL)?.let {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, ListCryptoFragment.newInstance(), LIST)
+                .commitNow()
+        }
     }
 
+    override fun onBackPressed() { backTo() }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
     }
