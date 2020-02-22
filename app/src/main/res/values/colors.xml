@@ -5,7 +5,7 @@
     <color name="colorAccent">#66BB6A</color>
     <color name="textPrimary">#000</color>
     <color name="background">#FFF</color>
-    <color name="separator">#28000000</color>
+    <color name="separator">#1E9B9797</color>
 
     <color name="percent_positive">#00c853</color>
     <color name="percent_negative">#d50000</color>

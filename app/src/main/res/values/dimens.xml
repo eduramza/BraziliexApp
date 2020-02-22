@@ -9,4 +9,5 @@
     <dimen name="text_size_trd_hist_list">15sp</dimen>
     <dimen name="size_title_orders">23sp</dimen>
     <dimen name="mrg_end_ic_toolbar">15dp</dimen>
+    <dimen name="text_balance_size">28sp</dimen>
 </resources>

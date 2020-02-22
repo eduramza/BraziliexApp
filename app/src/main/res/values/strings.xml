@@ -3,12 +3,15 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="last_price_info">Last Price:</string>
+    <string name="last_price_info">Ultimo Preço:</string>
     <string name="volume_24h">Volume (24h):</string>
-    <string name="price_24h">Price (24h):</string>
-    <string name="trade_history_header_price">Price (R$)</string>
-    <string name="trade_history_header_qtde">Amount</string>
+    <string name="price_24h">Preço (24h):</string>
+    <string name="trade_history_header_price">Preço (R$)</string>
+    <string name="trade_history_header_qtde">Qtde</string>
     <string name="trade_history_header_total">Total (R$)</string>
-    <string name="title_sell_orders">Sell Orders</string>
-    <string name="title_buy_orders">Buy Orders</string>
+    <string name="title_sell_orders">Ordens de venda</string>
+    <string name="title_estime_balance">Balanço estimado</string>
+    <string name="buy_orders">Ordens de Compra</string>
+    <string name="bt_new">NOVO SALDO</string>
+    <string name="coin">Moeda</string>
 </resources>
