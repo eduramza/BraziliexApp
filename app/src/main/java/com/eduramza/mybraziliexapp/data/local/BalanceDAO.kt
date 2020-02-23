@@ -8,6 +8,9 @@ interface BalanceDAO{
     @Query("SELECT * FROM balance")
     suspend fun getMyOrders(): List<Balance>
 
+    @Query("SELECT * FROM balance WHERE coin = :coin")
+    suspend fun verifyIfCoinExists(coin: String): Balance
+
     @Insert
     suspend fun insertOrders(balance: Balance): Long
 

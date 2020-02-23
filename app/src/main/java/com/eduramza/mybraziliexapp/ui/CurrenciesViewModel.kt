@@ -127,8 +127,7 @@ class CurrenciesViewModel(private val publicRepository: PublicRepository,
     fun updatePriceBalance(coin: String?, price: Double?){
         viewModelScope.launch {
             try {
-//                coin?.let { price?.let { it1 -> localRepository.updatePrice(it, it1) } }
-                coin?.let { price?.let { it1 -> insertNewCoin(it, it1) } }
+                coin?.let { price?.let { it1 -> localRepository.updatePrice(it, it1) } }
             } catch (e: Exception){
                 coin?.let { price?.let { it1 -> insertNewCoin(it, it1) } }
                 e.printStackTrace()

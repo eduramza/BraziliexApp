@@ -19,6 +19,11 @@ class LocalRepository (val db: AppDatabase,
 
     suspend fun updatePrice(coin: String,
                             price: Double) = withContext(ioDispatcher){
-        db.balanceDAO().updatePrice(newPrice = price, coin = coin)
+        val isUpdate = db.balanceDAO().verifyIfCoinExists(coin)
+        if (isUpdate != null) {
+            db.balanceDAO().updatePrice(newPrice = price, coin = coin)
+        } else {
+            db.balanceDAO().insertOrders(Balance(coin = coin, amount = 0.0, unit_price = price))
+        }
     }
 }

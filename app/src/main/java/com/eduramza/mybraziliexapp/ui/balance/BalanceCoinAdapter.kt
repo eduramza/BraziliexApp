@@ -10,7 +10,8 @@ import com.eduramza.mybraziliexapp.ui.inflate
 import com.eduramza.mybraziliexapp.ui.transformDoubleInBRL
 import kotlinx.android.synthetic.main.item_list_balance.view.*
 
-class BalanceCoinAdapter(private val orderList: MutableList<Balance>
+class BalanceCoinAdapter(private val orderList: MutableList<Balance>,
+                         private val listener: BalanceListener
 ): RecyclerView.Adapter<BalanceCoinAdapter.ViewHolder>(){
 
     override fun getItemCount() = orderList.size
@@ -40,13 +41,26 @@ class BalanceCoinAdapter(private val orderList: MutableList<Balance>
             this.item = item
 
             itemView.tv_trd_balance_coin.text = item.coin
-            itemView.tv_trd_balance_amount.text = item.amount.toString()
+            val valueAm: Double = item.amount ?: 0.0
+            itemView.tv_trd_balance_amount.text = valueAm.toString()
+
             if (item.amount != null) {
-                itemView.tv_trd_balance_total.text = (item.amount * item.unit_price).transformDoubleInBRL()
+                val total = item.amount * item.unit_price
+                itemView.tv_trd_balance_total.text = total.transformDoubleInBRL()
+                listener.incrementBalance(total)
             } else {
                 itemView.tv_trd_balance_total.text = "R$ 0,00"
             }
 
+            itemView.linear_trd_hist_content.setOnClickListener {
+                listener.onItemClick(item.coin, item.amount)
+            }
+
         }
+    }
+
+    interface BalanceListener{
+        fun onItemClick(coin: String, amount: Double?)
+        fun incrementBalance(value: Double)
     }
 }

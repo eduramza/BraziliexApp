@@ -10,4 +10,6 @@
     <dimen name="size_title_orders">23sp</dimen>
     <dimen name="mrg_end_ic_toolbar">15dp</dimen>
     <dimen name="text_balance_size">28sp</dimen>
+    <dimen name="text_size_dialog_title">23sp</dimen>
+    <dimen name="default_text_size">17sp</dimen>
 </resources>

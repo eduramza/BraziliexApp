@@ -14,4 +14,7 @@
     <string name="buy_orders">Ordens de Compra</string>
     <string name="bt_new">NOVO SALDO</string>
     <string name="coin">Moeda</string>
+    <string name="amount">Quantidade</string>
+    <string name="cancel">cancelar</string>
+    <string name="save">salvar</string>
 </resources>

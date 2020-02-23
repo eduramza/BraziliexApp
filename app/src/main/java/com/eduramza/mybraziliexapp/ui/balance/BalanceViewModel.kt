@@ -16,6 +16,7 @@ class BalanceViewModel(private val localRepository: LocalRepository) : ViewModel
         viewModelScope.launch {
             try {
                 localRepository.updateAmount(coin, amount)
+                getAllbalance()
             } catch (e: Exception){
                 e.printStackTrace()
             }
