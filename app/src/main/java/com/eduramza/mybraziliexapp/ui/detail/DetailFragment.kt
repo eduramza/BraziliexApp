@@ -101,7 +101,7 @@ class DetailFragment : Fragment() {
     private fun setupOrdersBookHeaaders(){
         tv_header_sell_orders.text = context!!.getString(R.string.title_sell_orders).toUpperCase() +
                 " (${ticker.market!!.marketForUppercase()})"
-        tv_header_buy_orders.text = context!!.getString(R.string.title_buy_orders).toUpperCase() +
+        tv_header_buy_orders.text = context!!.getString(R.string.buy_orders).toUpperCase() +
                 " (${ticker.market!!.marketForUppercase()})"
     }
 

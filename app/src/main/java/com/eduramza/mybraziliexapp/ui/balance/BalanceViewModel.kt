@@ -1,34 +1,32 @@
 package com.eduramza.mybraziliexapp.ui.balance
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.eduramza.mybraziliexapp.data.local.LocalRepository
-import com.eduramza.mybraziliexapp.data.model.local.BuyOrders
+import com.eduramza.mybraziliexapp.data.model.local.Balance
 import kotlinx.coroutines.launch
 
 class BalanceViewModel(private val localRepository: LocalRepository) : ViewModel() {
 
-    private val listOfOrders: MutableList<BuyOrders> = mutableListOf()
-    private val _buyOrders = MutableLiveData<List<BuyOrders>>()
-    fun getBuyOrdersLiveData() = _buyOrders
+    private val _balance = MutableLiveData<List<Balance>>()
+    fun getBuyOrdersLiveData() = _balance
 
-    fun insertNewOrder(orders: BuyOrders){
+    fun updateAmount(coin: String, amount: Double){
         viewModelScope.launch {
             try {
-                localRepository.insertOrder(orders)
-                listOrders()
+                localRepository.updateAmount(coin, amount)
             } catch (e: Exception){
                 e.printStackTrace()
             }
         }
     }
 
-    fun listOrders(){
+    fun getAllbalance(){
         viewModelScope.launch {
             try {
-                _buyOrders.postValue(localRepository.getAllOrders())
+                val result = localRepository.getBalances()
+                _balance.postValue(result)
             } catch (e: Exception){
                 e.printStackTrace()
             }

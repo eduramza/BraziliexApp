@@ -13,7 +13,7 @@ import org.koin.dsl.module
 val appModule = module {
     single { RemoteService().getRemote() }
     single<PublicRepository> { PublicRepositoryImpl(get()) }
-    viewModel { CurrenciesViewModel(get()) }
+    viewModel { CurrenciesViewModel(get(), get()) }
 }
 
 val localModules = module {

@@ -56,6 +56,7 @@ class ListCryptoFragment : Fragment(), TickersAdapter.TickerListener {
         viewModel.getAllTickers()
         viewModel.getTickerResponse().observe(viewLifecycleOwner, Observer {
             adapter.updateList(it as MutableList<Tickers.TickerUnit>)
+            viewModel.updateLocalDatabase()
         })
         viewModel.getLoadingOrderbook().observe(viewLifecycleOwner, Observer {
             if (it){

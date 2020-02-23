@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.eduramza.mybraziliexapp.data.local.LocalRepository
+import com.eduramza.mybraziliexapp.data.model.local.Balance
 import com.eduramza.mybraziliexapp.data.model.orderbook.Orderbook
 import com.eduramza.mybraziliexapp.data.model.tickers.Tickers
 import com.eduramza.mybraziliexapp.data.model.tradehistory.TradeHistory
@@ -12,7 +14,9 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 import kotlin.reflect.full.memberProperties
 
-class CurrenciesViewModel(private val publicRepository: PublicRepository) : ViewModel() {
+class CurrenciesViewModel(private val publicRepository: PublicRepository,
+                          private val localRepository: LocalRepository
+) : ViewModel() {
 
     private val _tickerResponse = MutableLiveData<List<Tickers.TickerUnit>>()
     private val listOfTickers: MutableList<Tickers.TickerUnit> = mutableListOf()
@@ -110,6 +114,35 @@ class CurrenciesViewModel(private val publicRepository: PublicRepository) : View
                 _isLoadingOrderBook.postValue(false)
             }
             _isLoadingOrderBook.postValue(false)
+        }
+    }
+
+    fun updateLocalDatabase(){
+        _tickerResponse.value?.forEach {
+            updatePriceBalance(it.market?.marketForUppercase(),
+                it.last)
+        }
+    }
+
+    fun updatePriceBalance(coin: String?, price: Double?){
+        viewModelScope.launch {
+            try {
+//                coin?.let { price?.let { it1 -> localRepository.updatePrice(it, it1) } }
+                coin?.let { price?.let { it1 -> insertNewCoin(it, it1) } }
+            } catch (e: Exception){
+                coin?.let { price?.let { it1 -> insertNewCoin(it, it1) } }
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun insertNewCoin(coin: String, price: Double) {
+        viewModelScope.launch {
+            try {
+                localRepository.insertBalance(Balance(coin = coin, amount = null, unit_price = price))
+            } catch (e: Exception){
+                e.printStackTrace()
+            }
         }
     }
 

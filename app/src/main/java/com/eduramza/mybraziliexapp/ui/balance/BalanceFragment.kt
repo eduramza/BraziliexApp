@@ -9,8 +9,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eduramza.mybraziliexapp.R
-import com.eduramza.mybraziliexapp.data.model.local.BuyOrders
+import com.eduramza.mybraziliexapp.data.model.local.Balance
 import kotlinx.android.synthetic.main.balance_fragment.*
+import kotlinx.android.synthetic.main.list_crypto_fragment.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class BalanceFragment : Fragment() {
@@ -20,7 +21,7 @@ class BalanceFragment : Fragment() {
     }
 
     private val balanceViewModel: BalanceViewModel by viewModel()
-    private lateinit var adapter: BalanceOrdersAdapter
+    private lateinit var adapter : BalanceCoinAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,18 +38,16 @@ class BalanceFragment : Fragment() {
     }
 
     private fun configlist(){
-        adapter = BalanceOrdersAdapter(mutableListOf())
-        rv_order_balance.layoutManager = LinearLayoutManager(context,
-            LinearLayoutManager.HORIZONTAL,
-            false)
-        rv_order_balance.itemAnimator = DefaultItemAnimator()
-        rv_order_balance.adapter = adapter
+        adapter = BalanceCoinAdapter(mutableListOf())
+        rv_coin_balance.layoutManager = LinearLayoutManager(context)
+        rv_coin_balance.itemAnimator = DefaultItemAnimator()
+        rv_coin_balance.adapter = adapter
     }
 
     private fun setupObservers(){
-        balanceViewModel.listOrders()
+        balanceViewModel.getAllbalance()
         balanceViewModel.getBuyOrdersLiveData().observe(viewLifecycleOwner, Observer {
-            adapter.updateList(it as MutableList<BuyOrders>)
+            adapter.updateList(it.sortedByDescending { it.amount } as MutableList<Balance>)
         })
     }
 

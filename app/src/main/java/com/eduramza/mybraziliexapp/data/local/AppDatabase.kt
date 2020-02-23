@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.eduramza.mybraziliexapp.data.model.local.BuyOrders
+import com.eduramza.mybraziliexapp.data.model.local.Balance
 
-@Database(entities = [BuyOrders::class], version = 1)
+@Database(entities = [Balance::class], version = 1)
 abstract class AppDatabase : RoomDatabase(){
 
-    abstract fun ordersDao(): BuyOrdersDAO
+    abstract fun balanceDAO(): BalanceDAO
 
     companion object{
         @Volatile private var instance: AppDatabase? = null
